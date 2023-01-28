@@ -2,6 +2,12 @@
 class SpriteKind:
     NPC = SpriteKind.create()
 
+def on_up_pressed():
+    animation.run_image_animation(Pemain, assets.animation("""
+        PemainUp
+    """), 500, True)
+controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
+
 def on_on_overlap(sprite, otherSprite):
     global ModeDialog, dbSoal, jwbSoal, NPC1, NPC2, posSoal
     ModeDialog = True
@@ -55,6 +61,24 @@ def on_on_overlap(sprite, otherSprite):
     story.set_sound_enabled(False)
 sprites.on_overlap(SpriteKind.player, SpriteKind.NPC, on_on_overlap)
 
+def on_left_pressed():
+    animation.run_image_animation(Pemain, assets.animation("""
+        PemainLeft
+    """), 500, True)
+controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
+
+def on_right_pressed():
+    animation.run_image_animation(Pemain, assets.animation("""
+        PemainRight
+    """), 500, True)
+controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
+
+def on_down_pressed():
+    animation.run_image_animation(Pemain, assets.animation("""
+        PemainDown
+    """), 500, True)
+controller.down.on_event(ControllerButtonEvent.PRESSED, on_down_pressed)
+
 def on_on_overlap2(sprite2, otherSprite2):
     game.set_game_over_playable(True, music.melody_playable(music.power_up), False)
     game.set_game_over_message(True, "SELAMAT ANDA BERHASIL!")
@@ -68,6 +92,7 @@ posSoal = 0
 ModeDialog = False
 NPC2: Sprite = None
 NPC1: Sprite = None
+Pemain: Sprite = None
 music.play(music.create_song(hex("""
         0078000408020200001c00010a006400f401640000040000000000000000000000000005000004360008000c00011b10001400011d18001c00012020002400012428002c0001202c003000011d30003400012034003800012438003c00012905001c000f0a006400f4010a00000400000000000000000000000000000000021e0008000c00010e14001800011324002800010c3400380001113c004000010c
     """)),

@@ -2,6 +2,11 @@ namespace SpriteKind {
     export const NPC = SpriteKind.create()
 }
 
+controller.up.onEvent(ControllerButtonEvent.Pressed, function on_up_pressed() {
+    animation.runImageAnimation(Pemain, assets.animation`
+        PemainUp
+    `, 500, true)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.NPC, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
     
     ModeDialog = true
@@ -44,6 +49,21 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.NPC, function on_on_overlap(spri
     
     story.setSoundEnabled(false)
 })
+controller.left.onEvent(ControllerButtonEvent.Pressed, function on_left_pressed() {
+    animation.runImageAnimation(Pemain, assets.animation`
+        PemainLeft
+    `, 500, true)
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function on_right_pressed() {
+    animation.runImageAnimation(Pemain, assets.animation`
+        PemainRight
+    `, 500, true)
+})
+controller.down.onEvent(ControllerButtonEvent.Pressed, function on_down_pressed() {
+    animation.runImageAnimation(Pemain, assets.animation`
+        PemainDown
+    `, 500, true)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function on_on_overlap2(sprite2: Sprite, otherSprite2: Sprite) {
     game.setGameOverPlayable(true, music.melodyPlayable(music.powerUp), false)
     game.setGameOverMessage(true, "SELAMAT ANDA BERHASIL!")
@@ -56,6 +76,7 @@ let posSoal = 0
 let ModeDialog = false
 let NPC2 : Sprite = null
 let NPC1 : Sprite = null
+let Pemain : Sprite = null
 music.play(music.createSong(hex`
         0078000408020200001c00010a006400f401640000040000000000000000000000000005000004360008000c00011b10001400011d18001c00012020002400012428002c0001202c003000011d30003400012034003800012438003c00012905001c000f0a006400f4010a00000400000000000000000000000000000000021e0008000c00010e14001800011324002800010c3400380001113c004000010c
     `), music.PlaybackMode.LoopingInBackground)
@@ -71,7 +92,7 @@ game.showLongText("Oleh:\\nYohan Adi Setiawan\\nPraditya Andi Setiawan", DialogL
 tiles.setCurrentTilemap(tilemap`
     level1
 `)
-let Pemain = sprites.create(assets.image`
+Pemain = sprites.create(assets.image`
     Pandi
 `, SpriteKind.Player)
 tiles.placeOnRandomTile(Pemain, sprites.dungeon.stairLadder)
