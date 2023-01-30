@@ -53,7 +53,7 @@ def on_on_overlap(sprite, otherSprite):
             """), SpriteKind.NPC)
             tiles.place_on_random_tile(NPC2, sprites.dungeon.collectible_blue_crystal)
         pause(100)
-        if posSoal == len(dbSoal):
+        if posSoal == len(dbSoal) - 1:
             posSoal = 0
         else:
             posSoal += 1
