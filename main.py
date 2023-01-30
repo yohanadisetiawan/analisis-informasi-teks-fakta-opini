@@ -53,7 +53,7 @@ def on_on_overlap(sprite, otherSprite):
             """), SpriteKind.NPC)
             tiles.place_on_random_tile(NPC2, sprites.dungeon.collectible_blue_crystal)
         pause(100)
-        if posSoal == 9:
+        if posSoal == len(dbSoal):
             posSoal = 0
         else:
             posSoal += 1
@@ -66,6 +66,12 @@ def on_left_pressed():
         PemainLeft
     """), 500, True)
 controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
+
+def on_countdown_end():
+    game.game_over(False)
+    game.set_game_over_message(False, "PERMAINAN SELESAI! Anda kalah.")
+    game.set_game_over_playable(False, music.melody_playable(music.power_down), False)
+info.on_countdown_end(on_countdown_end)
 
 def on_right_pressed():
     animation.run_image_animation(Pemain, assets.animation("""
@@ -126,15 +132,7 @@ tiles.place_on_random_tile(NPC2, sprites.dungeon.collectible_blue_crystal)
 ModeDialog = False
 posSoal = 0
 info.set_score(0)
-
-def on_on_update():
-    global Goal
-    if info.score() > 70:
-        Goal = sprites.create(assets.image("""
-            FinalNPC
-        """), SpriteKind.food)
-        tiles.place_on_random_tile(Goal, sprites.dungeon.stair_north)
-game.on_update(on_on_update)
+info.start_countdown(120)
 
 def on_forever():
     if ModeDialog == True:
@@ -142,3 +140,12 @@ def on_forever():
     elif ModeDialog == False:
         controller.move_sprite(Pemain, 100, 100)
 forever(on_forever)
+
+def on_update_interval():
+    global Goal
+    if info.score() > 70:
+        Goal = sprites.create(assets.image("""
+            FinalNPC
+        """), SpriteKind.food)
+        tiles.place_on_random_tile(Goal, sprites.dungeon.stair_north)
+game.on_update_interval(500, on_update_interval)
