@@ -3,9 +3,10 @@ class SpriteKind:
     NPC = SpriteKind.create()
 
 def on_up_pressed():
-    animation.run_image_animation(Pemain, assets.animation("""
-        PemainUp
-    """), 500, True)
+    if not (ModeDialog):
+        animation.run_image_animation(Pemain, assets.animation("""
+            PemainUp
+        """), 500, True)
 controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
 def on_on_overlap(sprite, otherSprite):
@@ -80,9 +81,10 @@ def on_right_pressed():
 controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
 
 def on_down_pressed():
-    animation.run_image_animation(Pemain, assets.animation("""
-        PemainDown
-    """), 500, True)
+    if not (ModeDialog):
+        animation.run_image_animation(Pemain, assets.animation("""
+            PemainDown
+        """), 500, True)
 controller.down.on_event(ControllerButtonEvent.PRESSED, on_down_pressed)
 
 def on_on_overlap2(sprite2, otherSprite2):
