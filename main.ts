@@ -55,7 +55,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.NPC, function (sprite, otherSpri
             tiles.placeOnRandomTile(NPC2, sprites.dungeon.collectibleBlueCrystal)
         }
         pause(100)
-        if (posSoal == 9) {
+        if (posSoal == dbSoal.length) {
             posSoal = 0
         } else {
             posSoal += 1
@@ -71,6 +71,11 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     500,
     true
     )
+})
+info.onCountdownEnd(function () {
+    game.gameOver(false)
+    game.setGameOverMessage(false, "PERMAINAN SELESAI! Anda kalah.")
+    game.setGameOverPlayable(false, music.melodyPlayable(music.powerDown), false)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -120,16 +125,17 @@ tiles.placeOnRandomTile(NPC2, sprites.dungeon.collectibleBlueCrystal)
 ModeDialog = false
 posSoal = 0
 info.setScore(0)
-game.onUpdate(function () {
-    if (info.score() > 70) {
-        Goal = sprites.create(assets.image`FinalNPC`, SpriteKind.Food)
-        tiles.placeOnRandomTile(Goal, sprites.dungeon.stairNorth)
-    }
-})
+info.startCountdown(120)
 forever(function () {
     if (ModeDialog == true) {
         controller.moveSprite(Pemain, 0, 0)
     } else if (ModeDialog == false) {
         controller.moveSprite(Pemain, 100, 100)
+    }
+})
+game.onUpdateInterval(500, function () {
+    if (info.score() > 70) {
+        Goal = sprites.create(assets.image`FinalNPC`, SpriteKind.Food)
+        tiles.placeOnRandomTile(Goal, sprites.dungeon.stairNorth)
     }
 })
