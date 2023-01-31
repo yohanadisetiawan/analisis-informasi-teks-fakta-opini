@@ -7,6 +7,8 @@ def on_up_pressed():
         animation.run_image_animation(Pemain, assets.animation("""
             PemainUp
         """), 500, True)
+        music.play(music.melody_playable(music.footstep),
+            music.PlaybackMode.IN_BACKGROUND)
 controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
 def on_on_overlap(sprite, otherSprite):
@@ -66,18 +68,23 @@ def on_left_pressed():
     animation.run_image_animation(Pemain, assets.animation("""
         PemainLeft
     """), 500, True)
+    music.play(music.melody_playable(music.footstep),
+        music.PlaybackMode.IN_BACKGROUND)
 controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
 
 def on_countdown_end():
+    game.set_game_over_message(False, "PERMAINAN SELESAI!\\nAnda kalah.")
+    game.set_game_over_playable(True, music.melody_playable(music.power_down), False)
+    game.set_game_over_scoring_type(game.ScoringType.HIGH_SCORE)
     game.game_over(False)
-    game.set_game_over_message(False, "PERMAINAN SELESAI! Anda kalah.")
-    game.set_game_over_playable(False, music.melody_playable(music.power_down), False)
 info.on_countdown_end(on_countdown_end)
 
 def on_right_pressed():
     animation.run_image_animation(Pemain, assets.animation("""
         PemainRight
     """), 500, True)
+    music.play(music.melody_playable(music.footstep),
+        music.PlaybackMode.IN_BACKGROUND)
 controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
 
 def on_down_pressed():
@@ -85,6 +92,8 @@ def on_down_pressed():
         animation.run_image_animation(Pemain, assets.animation("""
             PemainDown
         """), 500, True)
+        music.play(music.melody_playable(music.footstep),
+            music.PlaybackMode.IN_BACKGROUND)
 controller.down.on_event(ControllerButtonEvent.PRESSED, on_down_pressed)
 
 def on_on_overlap2(sprite2, otherSprite2):
