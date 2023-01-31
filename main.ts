@@ -77,8 +77,8 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     music.play(music.melodyPlayable(music.footstep), music.PlaybackMode.InBackground)
 })
 info.onCountdownEnd(function () {
-    game.setGameOverMessage(false, "PERMAINAN SELESAI!\\nAnda kalah.")
-    game.setGameOverPlayable(true, music.melodyPlayable(music.powerDown), false)
+    game.setGameOverMessage(false, "PERMAINAN SELESAI!")
+    game.setGameOverPlayable(false, music.melodyPlayable(music.powerDown), false)
     game.setGameOverScoringType(game.ScoringType.HighScore)
     game.gameOver(false)
 })
@@ -134,7 +134,7 @@ tiles.placeOnRandomTile(NPC2, sprites.dungeon.collectibleBlueCrystal)
 ModeDialog = false
 posSoal = 0
 info.setScore(0)
-info.startCountdown(120)
+info.startCountdown(180)
 forever(function () {
     if (ModeDialog == true) {
         controller.moveSprite(Pemain, 0, 0)
@@ -147,7 +147,7 @@ game.onUpdateInterval(500, function () {
         Goal = sprites.create(assets.image`FinalNPC`, SpriteKind.Food)
         tiles.placeOnRandomTile(Goal, sprites.dungeon.stairNorth)
     }
-    if (info.countdown() < 30) {
-        Pemain.sayText("Ayo waktunya tinggal sedikit lagi!", 5000, true)
+    if (info.countdown() > 20 && info.countdown() < 30) {
+        Pemain.sayText("Ayo waktunya tinggal sedikit lagi!", 5000, false)
     }
 })
